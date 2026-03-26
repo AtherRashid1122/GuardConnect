@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "610231312360",
+    "project_id": "guardconnect-88a12",
+    "storage_bucket": "guardconnect-88a12.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610231312360:android:fe0772dd91896bf8554e5d",
+        "android_client_info": {
+          "package_name": "com.guardconnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5oeunTSzbMeRnVc7zB9peSUUZsndT3Oo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
