@@ -39,7 +39,7 @@ console.log("chatId:", chatId);
 
     const newChat = await firestore().collection('chats').add({
       participants,
-      chatKey, // 🔑 UNIQUE KEY
+      chatKey, 
       createdAt: firestore.FieldValue.serverTimestamp(),
     });
 
@@ -59,7 +59,7 @@ console.log("chatId:", chatId);
     init();
   }, [currentUser, otherUserId]);
 
-  // 🔥 REALTIME MESSAGES
+  
   useEffect(() => {
     if (!chatId) return;
 
