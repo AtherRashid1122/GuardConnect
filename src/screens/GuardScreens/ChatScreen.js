@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
 
-  // 🔵 Message bubble (base)
+
   messageBubble: {
     maxWidth: '75%',
     padding: 12,
@@ -167,13 +167,13 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
 
-  // 👤 Current user (right side)
+
   guardBubble: {
     backgroundColor: '#0A84FF',
     borderBottomRightRadius: 4,
   },
 
-  // 👥 Other user (left side)
+
   adminBubble: {
     backgroundColor: '#E4E7EB',
     borderBottomLeftRadius: 4,
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
 
-  // 🔽 Input area
+ 
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
