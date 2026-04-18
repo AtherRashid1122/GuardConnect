@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React,{useEffect} from "react";
 import { Alert } from "react-native";
 import AppNavigator from './src/navigation/AppNavigator'
@@ -7,6 +8,8 @@ import { store, persistor } from './src/redux/store'
 import { PersistGate } from "redux-persist/integration/react";
 import messaging from "@react-native-firebase/messaging";
 import { listenToTokenRefresh } from "./src/utils/fcmServices";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 const App = () => {
  useEffect(() => {
     const unsubscribeForeground = messaging().onMessage(async remoteMessage => {
@@ -27,6 +30,7 @@ const App = () => {
   }, []);
 
   return (
+      <GestureHandlerRootView style={{ flex: 1 }}>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer>
@@ -34,6 +38,7 @@ const App = () => {
         </NavigationContainer>
       </PersistGate>
     </Provider>
+    </GestureHandlerRootView>
   )
 }
 export default App

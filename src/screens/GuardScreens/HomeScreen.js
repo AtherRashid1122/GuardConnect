@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 const HomeScreen = ({ navigation }) => {
   const user = useSelector(state => state.auth.user);
-
+const adminId="rFX7Xi0ZwDOM8UiFJXEcnGx1BqY2"
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -28,6 +28,7 @@ const HomeScreen = ({ navigation }) => {
       <View style={styles.actionsContainer}>
         <TouchableOpacity
           style={styles.actionBtn}
+
           onPress={() => navigation.navigate('Shift')}
         >
           <Text style={styles.actionText}>View Shifts</Text>
@@ -35,7 +36,7 @@ const HomeScreen = ({ navigation }) => {
 
         <TouchableOpacity
           style={styles.actionBtn}
-          onPress={() => navigation.navigate('Chat')}
+          onPress={() => navigation.navigate('Chat',{otherUserId:adminId})}
         >
           <Text style={styles.actionText}>Open Chat</Text>
         </TouchableOpacity>
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
-   elevation: 3,
+    elevation: 3,
   },
   cardTitle: {
     fontSize: 16,

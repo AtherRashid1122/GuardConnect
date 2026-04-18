@@ -5,14 +5,12 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-
   ScrollView,
   Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { getFirestore, serverTimestamp, setDoc ,doc} from '@react-native-firebase/firestore'
+import { getFirestore, serverTimestamp, setDoc, doc } from '@react-native-firebase/firestore'
 import { getAuth, createUserWithEmailAndPassword } from '@react-native-firebase/auth';
-
 const SignupScreen = ({ navigation }) => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -54,18 +52,15 @@ const SignupScreen = ({ navigation }) => {
         email: email,
         phone: phone,
         createdAt: serverTimestamp(),
-        password:password,
-          role: 'guard',
-
+        password: password,
+        role: 'guard',
       })
       Alert.alert('Success', 'Account created successfully');
       navigation.navigate('LoginScreen')
     } catch (error) {
       Alert.alert("Signup Error", error.message)
     }
-
   };
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>

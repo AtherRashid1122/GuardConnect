@@ -12,6 +12,5 @@ const AuthNavigator = () => {
         </Stack.Navigator>
     )
 }
-
 export default AuthNavigator
 const styles = StyleSheet.create({})

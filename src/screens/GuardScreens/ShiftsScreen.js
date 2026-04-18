@@ -1,52 +1,67 @@
-import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-const dummyShifts = [
-  {
-    id: '1',
-    siteName: 'London Mall',
-    date: '27 Mar 2026',
-    startTime: '09:00 AM',
-    endTime: '05:00 PM',
-    status: 'upcoming',
-  },
-  {
-    id: '2',
-    siteName: 'Canary Wharf',
-    date: '28 Mar 2026',
-    startTime: '10:00 AM',
-    endTime: '06:00 PM',
-    status: 'completed',
-  },
-  {
-    id: '3',
-    siteName: 'Westfield Mall',
-    date: '29 Mar 2026',
-    startTime: '12:00 PM',
-    endTime: '08:00 PM',
-    status: 'cancelled',
-  },
-];
+import { useSelector } from 'react-redux';
+import firestore from '@react-native-firebase/firestore';
+import { useFocusEffect } from '@react-navigation/native';
 
 const getStatusColor = status => {
   switch (status) {
-    case 'upcoming':
+    case 'assigned':
+      return 'orange';
+    case 'accepted':
       return 'green';
+    case 'onDuty':
+      return 'blue';
     case 'completed':
       return 'gray';
     case 'cancelled':
+      return 'red';
+    case 'rejected':
       return 'red';
     default:
       return 'black';
   }
 };
 
-const ShiftScreen = () => {
+const ShiftScreen = ({ navigation }) => {
+  const [shift, setshift] = useState([]);
+  const user = useSelector(state => state.auth.user);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (user?.uid) {
+        getshifts();
+      }
+    }, [user])
+  );
+
+  const getshifts = async () => {
+    try {
+      const data = await firestore()
+        .collection('shifts')
+        .where('guardId', '==', user?.uid)
+        .get();
+
+      const shiftsdata = data.docs.map(item => ({
+        id: item.id,
+        ...item.data(),
+      }));
+
+      setshift(shiftsdata);
+      console.log('updated shifts:', shiftsdata);
+    } catch (error) {
+      console.log('shift data error', error);
+    }
+  };
+
   const renderItem = ({ item }) => {
     return (
-      <View style={styles.card}>
-        <Text style={styles.siteName}>{item.siteName}</Text>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() => navigation.navigate('ShiftsDetailScreen', { shift: item })}
+      >
+        <Text style={styles.siteName}>{item.location}</Text>
         <Text style={styles.info}>Date: {item.date}</Text>
         <Text style={styles.info}>
           Time: {item.startTime} - {item.endTime}
@@ -54,7 +69,7 @@ const ShiftScreen = () => {
         <Text style={[styles.status, { color: getStatusColor(item.status) }]}>
           {item.status}
         </Text>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -63,7 +78,7 @@ const ShiftScreen = () => {
       <Text style={styles.heading}>My Shifts</Text>
 
       <FlatList
-        data={dummyShifts}
+        data={shift}
         keyExtractor={item => item.id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}

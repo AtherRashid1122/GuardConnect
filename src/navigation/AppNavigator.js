@@ -25,25 +25,26 @@ import { useSelector } from "react-redux";
 import AuthNavigator from "./AuthNavigator";
 import GuardNavigator from './GuardNavigation/GuardNavigator'
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AdminNavigator from '../navigation/AdminNavigator'
+import AdminNavigator from './AdminNavigation/AdminNavigator'
 const Stack = createNativeStackNavigator()
 const AppNavigator = () => {
-    const user = useSelector((state) => state.auth.user);
-    const role = useSelector((state) => state.auth.role)
-    console.log("AppNavigator user:", user);
-    console.log("AppNavigator role:", role);
-    if (!user) {
-  console.log("AppNavigator -> AuthNavigator");
-  return <AuthNavigator />;
-}
+  const user = useSelector((state) => state.auth.user);
+  const role = useSelector((state) => state.auth.role)
+  console.log("AppNavigator user:", user);
+  console.log("AppNavigator role:", role);
+  if (!user) {
 
-if (role === "admin") {
-  console.log("AppNavigator -> AdminNavigator");
-  return <AdminNavigator />;
-}
+    return <AuthNavigator />;
+  }
 
-if (role === "guard") {
-  console.log("AppNavigator -> GuardNavigator");
-  return <GuardNavigator />;
-}}
+  if (role === "admin") {
+
+    return <AdminNavigator />;
+  }
+
+  if (role === "guard") {
+
+    return <GuardNavigator />;
+  }
+}
 export default AppNavigator;

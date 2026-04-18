@@ -12,7 +12,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         setuser: (state, action) => {
-            console.log("data", action.payload)
+            //console.log("data", action.payload)
             state.user = action.payload.user;
             state.role = action.payload.role;
             state.error = null;
