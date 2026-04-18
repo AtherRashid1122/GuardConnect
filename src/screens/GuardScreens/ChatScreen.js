@@ -13,7 +13,6 @@ import firestore from '@react-native-firebase/firestore';
 
 const ChatScreen = ({ route }) => {
 
-  // ✅ FIX PARAM NAME
   const otherUserId = route?.params?.otherUserId;
 
   const currentUser = useSelector(state => state.auth.user);
@@ -24,7 +23,7 @@ const ChatScreen = ({ route }) => {
 console.log("currentUser:", currentUser?.uid);
 console.log("otherUserId:", otherUserId);
 console.log("chatId:", chatId);
-  // 🔥 FIXED CHAT CREATION (UNIQUE PER USER PAIR)
+  
   const getOrCreateChat = async (user1, user2) => {
     const participants = [user1, user2].sort();
     const chatKey = participants.join('_');
@@ -47,7 +46,7 @@ console.log("chatId:", chatId);
     return newChat.id;
   };
 
-  // 🔥 INIT CHAT (YOU WERE MISSING THIS)
+  
   useEffect(() => {
     if (!currentUser?.uid || !otherUserId) return;
 
@@ -77,7 +76,7 @@ console.log("chatId:", chatId);
     ...doc.data(),
   }));
 
-  console.log("MESSAGES:", msgs); // 👈 DEBUG
+  console.log("MESSAGES:", msgs); 
 
   setmessages(msgs);
 });
@@ -85,7 +84,7 @@ console.log("chatId:", chatId);
     return () => unsubscribe();
   }, [chatId]);
 
-  // 🔥 SEND MESSAGE
+
   const handleSend = async () => {
     if (!messageText.trim() || !chatId) return;
 
@@ -99,7 +98,7 @@ console.log("chatId:", chatId);
     setMessageText('');
   };
 
-  // 💬 RENDER MESSAGE
+
   const renderItem = ({ item }) => {
     const isMe = item.senderId === currentUser.uid;
 
